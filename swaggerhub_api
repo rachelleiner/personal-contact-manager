@@ -1,0 +1,109 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Contact Manager
+  description: API for Small Project Contact Manager
+
+  contact:
+    email: li061698@ucf.edu
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  
+host: 138.197.122.147 # Placeholder
+basePath: /LAMPAPI
+  
+schemes:
+- http
+ 
+ 
+# Login, Create account, add a contact, delete a contact, edit a contact, search for a contact
+
+paths:
+  /Login.php:
+    post:
+      tags:
+      - Users
+      summary: User Login
+      operationId: userLogin
+      description: Lets a manager login into database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        schema:
+          $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+          
+  /Register.php:
+    post:
+      tags:
+      - Users
+      summary: User Register
+      operationId: userRegister
+      description: Lets a manager register into database
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: registerItem
+        description: Resgister
+        schema:
+          $ref: '#/definitions/Register'
+      responses:
+        200:
+          description: OK
+        404:
+          description: URL Not Found
+
+
+
+
+definitions:
+  Login:
+    type: object
+    required:
+    - Login
+    - Password
+    properties:
+      login:
+        type: string
+        example: "Access-20"
+        
+      password:
+        type: string
+        example: "WeLoveCOP4331-20"
+
+  Register:
+    type: object
+    required:
+    - FirstName
+    - LastName
+    - Login
+    - Password
+
+    properties:
+      firstName:
+        type: string
+        example: "Lily"
+      lastName:
+        type: string
+        example: "Y"
+      login:
+        type: string
+        example: "Test"
+      password:
+        type: string
+        example: "4331test"
+      
