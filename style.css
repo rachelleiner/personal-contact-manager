@@ -127,3 +127,24 @@ button[type="popup-cancel"] {
 button[type="popup-cancel"]:hover {
     background-color: #ee2222;
 }
+
+
+<!--COLORS.HTML-->
+#searchBar {
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
