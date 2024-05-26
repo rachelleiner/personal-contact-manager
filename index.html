@@ -8,8 +8,7 @@
 
         <!-- Load external CSS styles -->
         <link rel="stylesheet" href="css/styles.css">
-        <!-- Load external JavaScript -->
-        <script src="js/code.js"></script>
+        
 
     </head>
 
@@ -18,22 +17,22 @@
        <div style="text-align: center; margin-bottom: 20px;">
     <h1 style="color: #f2e9e4">Welcome to the Contact Manager</h1>
 
-    <form action="LAMPAPI/Login.php" method="post">
+    <div type="loginform" id="loginForm">
         <div>
             <label for="username">Username</label>
-            <input type="text" id="username" name="login" required>
+            <input type="text" id="loginName" name="loginName" required>
         </div>
 
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="loginPassword" name="loginPassword" required>
         </div>
         <div>
             <label for="login"></label>
-            <button type="submit" id="login">Login</button>
+            <button type="button" id="loginButton" onclick="doLogin();">Login</button>
         </div>      
-        
-    </form>
+        <span id="loginResult"></span>
+    </div>
     
     <form style="background-color: #9a8c98">
 		<h3 style="color: #fff">Don't have an account? Create one here.</h3>
@@ -66,6 +65,7 @@
     </div>
 </div>
 </form>
-        
+        <!-- Load external JavaScript -->
+        <script src="js/code.js"></script>
     </body>
 </html>
