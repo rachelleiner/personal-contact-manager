@@ -3,65 +3,48 @@
 
 	$inData = getRequestInfo();
 	
+	$ID = 0;
 	$FirstName = $inData["FirstName"];
 	$LastName = $inData["LastName"];
     $Login = $inData["Login"];
     $Password = $inData["Password"];
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 	
-	if( $conn->connect_error ) # If there's a connect error
+	$conn = new mysqli("http://www.contactmanager.xyz", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 	
+
+	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
 	}
-	else # Login procedure
-	{
-		$stmt = $conn->prepare("SELECT ID FROM Users WHERE Login=?");
-		$stmt->bind_param("s", $inData["Login"]); 
-		$stmt->execute();
-		$result = $stmt->get_result();
 
-		if( $row = $result->fetch_assoc()  ) # If this info is already present
-		{
-			returnWithError("This User already exists");
-		}
-		else # Info does not exist yet
-		{
-			$stmt = $conn->prepare("INSERT into Users (FirstName,LastName,Login,Password) VALUES(?,?,?,?)");
-		    $stmt->bind_param("ssss", $firstName,$lastName,$login,$password);
-		    $test = $stmt->execute();
+	else
+    {
+            $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?,?,?,?)");
+            $stmt->bind_param("ssss", $FirstName, $LastName, $Login, $Password);
 
-            $stmt->close();
-            $stmt->close();
-		    
-            if(test)
-                returnWithError("working");
-            else
-            returnWithError("not working yet");
-		}
+			$working = $stmt->execute();
+			$stmt->close();
+			$conn->close();
 
-	}
-	
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
+			if($working)
+				returnWithError("working!");
+    }
 
-	function sendResultInfoAsJson( $obj )
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
-	
-	function returnWithError( $err )
-	{
-		$retValue = '{"error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
-	}
-	
-	function returnWithInfo( $FirstName, $LastName, $ID )
-	{
-		$retValue = '{"ID":' . $ID . ',"FirstName":"' . $FirstName . '","LastName":"' . $LastName . '","error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
+    function getRequestInfo()
+    {
+        return json_decode(file_get_contents('php://input'), true);
+    }
+
+    function sendResultInfoAsJson($obj)
+    {
+        header('Content-type: application/json');
+        echo $obj;
+    }
+
+    function returnWithError($err)
+    {
+        $retValue = '{ID":0, "FirstName":"", "LastName":"", "error":"' . $err . '"}';
+        sendResultInfoAsJson($retValue);
+    }
+
 	
 ?>
