@@ -7,7 +7,7 @@
 	$LastName = $inData["LastName"];
 	$ID = $inData["ID"];
 
-	$conn = new mysqli("http://www.contactmanager.xyz", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 	
+	$conn = new mysqli("localhost", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 	
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );
