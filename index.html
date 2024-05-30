@@ -1,0 +1,76 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Index</title>
+
+        <!-- Load external CSS styles -->
+        <link rel="stylesheet" href="css/styles.css">
+        
+
+    </head>
+
+    <body>
+
+       <div style="text-align: center; margin-bottom: 20px;">
+    <h1 style="color: #f2e9e4">Welcome to the Contact Manager</h1>
+
+    <div type="loginform" id="loginForm">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="loginName" name="loginName" required>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+        </div>
+        <div>
+            <label for="login"></label>
+            <button type="button" id="loginButton" onclick="doLogin()">Login</button>
+        </div>      
+        <span id="loginResult"></span>
+    </div>
+    
+    <div type="loginform" style="background-color: #9a8c98">
+    
+		<h3 style="color: #fff">Don't have an account? Create one here.</h3>
+        <div>
+            <label for="register"></label>
+            <button type="account_submit" id="register" onclick="openForm()">Register</button>  
+        </div>
+        
+      <div class="formPopup" id="popupForm">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Account Registration</h2>
+        </div>
+        <div>
+          <label for="firstname"></label>
+          <input type="popup-text" id="R_FirstName" placeholder="First Name" required>
+        </div> 
+          <label for="lastname"></label>
+          <input type="popup-text" id="R_LastName" placeholder="Last Name" required>
+        <div>  
+          <label for="username"></label>
+          <input type="popup-text" id="R_Username" placeholder="Username" required>
+        </div> 
+          <label for="psw"></label>
+          <input type="password" id="R_Password" placeholder="Password" required>
+        <div> 
+          <button type="popup-submit" id="registerButton" onclick="doRegister()" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeForm()">Close</button>
+        </div>
+        
+       <span id="registerResult"></span> 
+       
+    </div>
+</div>
+</div>
+        <!-- Load external JavaScript -->
+        <script src="js/code.js"></script>
+    </body>
+</html>

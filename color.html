@@ -1,0 +1,53 @@
+ <!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Color Lookup</title>
+
+        <!-- Load external CSS styles -->
+        <link rel="stylesheet" href="css/styles.css">
+
+    </head>
+    <script type="text/javascript">
+	    document.addEventListener('DOMContentLoaded', function() 
+    {
+		    readCookie();
+	  }, false);
+	  </script>
+    
+
+
+    <body>
+        <div style="text-align: center; margin-bottom: 30px;">
+        <div id="loggedInDiv">
+	  <span id="userName"></span><br />
+	  <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+</div>
+        
+        <br />
+        <input type="text" id="searchBar" onkeyup="search()" placeholder="Search here...">
+        <button type="button" id="searchColorButton" class="buttons" onclick="searchColor();"> Search Color </button><br />
+        
+        <table id="resultsTable">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th style="padding-right: 80px; padding-left: 80px;">Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+      
+       
+       
+       
+    </tbody>
+    </table>
+    <input type="text" id="colorText" placeholder="Contact Information To Add">
+	  <button type="button" id="addColorButton" class="buttons" onclick="addColor();"> Add Contact </button><br />
+	  <span id="colorAddResult"></span>
+
