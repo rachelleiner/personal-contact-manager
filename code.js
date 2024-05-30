@@ -1,10 +1,12 @@
 /* Place your JavaScript in this file */
-const urlBase = 'http://contactmanager.xyz/LAMPAPI';
+const urlBase = 'http://www.contactmanager.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
 let firstName = "";
 let lastName = "";
+
+var currentIndex = 0;
 
 function doLogin()
 {
@@ -34,8 +36,11 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
+				userId = jsonObject.ID;
+        console.log(userId);
+        console.log(login);
+        console.log(jsonObject);
+        
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -47,7 +52,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "/color.html";
+	      window.location.href = "color.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -58,6 +63,103 @@ function doLogin()
 	}
 
 }
+
+function doRegister()
+{
+    let R_FirstName = document.getElementById("R_FirstName").value;
+    let R_LastName = document.getElementById("R_LastName").value;
+    let R_username = document.getElementById("R_Username").value;
+    let R_password = document.getElementById("R_Password").value;
+    
+    if (R_FirstName == "" || R_LastName == "" || R_username == "" || R_password == "")
+		{
+			document.getElementById("registerResult").innerHTML = "Please fill in all of the fields.";
+			return;
+		}
+
+	let tmp = {username:R_username,password:R_password,firstName:R_FirstName,lastName:R_LastName};
+	let jsonPayload = JSON.stringify( tmp );
+
+    let url = urlBase + '/Register.' + extension;
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
+	xhr.onreadystatechange = function() 
+	{
+		if (this.readyState == 4 && this.status == 200) 
+		{
+			let jsonObject = JSON.parse( xhr.responseText );
+			var test = jsonObject.error;
+			console.log(test);
+       
+			saveCookie();
+			doLogin();
+		} 
+ };
+ 
+ try{  
+   xhr.send(jsonPayload);
+ }
+ catch(err)
+	{
+		document.getElementById("registerResult").innerHTML = err.message;
+}
+}
+
+function doAdd(){
+	
+    let FirstName = document.getElementById("FirstName").value;
+    let LastName = document.getElementById("LastName").value;
+    let Email = document.getElementById("Email").value;
+    let Phone = document.getElementById("Phone").value;
+
+	if (FirstName == "" || Phone == "") // User will not always know last name nor email
+		{
+			document.getElementById("registerResult").innerHTML = "Please fill out these required fields.";
+			return;
+		}
+
+	document.getElementById("contactAddResult").innerHTML = "";
+
+	let tmp = {Email:Email,Phone:Phone,FirstName:FirstName,LastName:LastName};
+	let jsonPayload = JSON.stringify( tmp );
+	let url = urlBase + '/Add.' + extension;
+
+	xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)  
+        {
+            document.getElementById("addResult").innerHTML = "Contact has been successfully added";
+        }
+    };
+    xhr.send(jsonPayload);
+}
+
+function doDelete(index, deleteID) //edit later
+{
+	document.getElementById("contactEditResult[" + newIndex + "]").innerHTML = "";
+	currentIndex = index;
+	document.getElementById("contactEditResult[" + index + "]").innerHTML = "";
+	var jsonPayload = '{"id" : ' + deleteID + '}';
+	var url = urlBase + '/LAMPAPI/Delete.' + extension;
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function() 
+	{
+		if (this.readyState == 4 && this.status == 200) 
+		{
+			document.getElementById("contactEditResult[" + index + "]").innerHTML = "Contact has been deleted";
+		}
+	};
+	xhr.send(jsonPayload);
+}
+
 
 function saveCookie()
 {
