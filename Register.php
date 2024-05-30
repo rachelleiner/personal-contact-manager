@@ -1,4 +1,5 @@
 
+
 <?php
 
 	$inData = getRequestInfo();
@@ -18,30 +19,16 @@
 
 	else
     {
-     $stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?,?,?,?)");
-            
-     if (!$stmt) {
-        returnWithError("Prepare failed: " . $conn->error);
-        }
-     else{       
-       $stmt->bind_param("ssss", $R_FirstName, $R_LastName, $R_username, $R_password);
-     
-    
-		else
-		{
-			returnWithError("No Records Found, Try Again!");
-		}
-			$stmt->execute();
-      
-   $result = $stmt->get_result();
+        $stmt = $conn->prepare("INSERT INTO Users (R_FirstName,R_LastName,R_username,R_password) VALUES(?,?,?,?)");
+        $stmt->bind_param("ssss", $R_FirstName, $R_LastName, $R_username, $R_password);
+        
+        $stmt->execute();
+        
+        $stmt->close();
+        $conn->close();
 
-		  if( $row = $result->fetch_assoc()  )
-    {
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
-			
-		}
-			$stmt->close();
-			$conn->close();
+        http_response_code(200);
+        returnWithError("");
 
     }
 
@@ -56,14 +43,9 @@
         echo $obj;
     }
 
-    function returnWithError($err)
-    {
-        $retValue = '{"ID":0, "FirstName":"", "LastName":"", "error":"' . $err . '"}';
-        sendResultInfoAsJson($retValue);
-    }
-    function returnWithInfo( $FirstName, $LastName, $ID )
+	function returnWithError($err)
 	{
-		$retValue = '{"ID":' . $ID . ',"FirstName":"' . $R_FirstName . '","LastName":"' . $R_LastName . '","error":""}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 
