@@ -7,7 +7,7 @@
 	$Phone = $inData["Phone"];
 	$ID = $inData["ID"];
 
-	$conn = new mysqli("contactmanager.xyz", "Access-20", "WeLoveCOP4331-20", "contactmanager");
+	$conn = new mysqli("localhost", "Access-20", "WeLoveCOP4331-20", "contactmanager");
 	if($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -22,17 +22,17 @@
 		$stmt->close();
 
 		$fieldsToUpdate = [];
-		if($FirstName !== $row['FirstName']) {
-			$fieldsToUpdate[] = 'FirstName = ?';
+		if($FirstName !== $row['FirstName'] && $FirstName !== "") {
+			$fieldsToUpdate[] .= 'FirstName = ?';
 		}
-		if($LastName !== $row['LastName']) {
-			$fieldsToUpdate[] = 'LastName = ?';
+		if($LastName !== $row['LastName'] && $LastName !== "") {
+			$fieldsToUpdate[] .= 'LastName = ?';
 		}
 		if($Email !== $row['Email']) {
-			$fieldsToUpdate[] = 'Email = ?';
+			$fieldsToUpdate[] .= 'Email = ?';
 		}
 		if($Phone !== $row['Phone']) {
-			$fieldsToUpdate[] = 'Phone = ?';
+			$fieldsToUpdate[] .= 'Phone = ?';
 		}
 
 		if(empty($fieldsToUpdate)) {
