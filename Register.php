@@ -3,12 +3,11 @@
 
 	$inData = getRequestInfo();
  	
-    $R_ID = $inData["R_ID"];
+    	$R_ID = $inData["R_ID"];
 	$R_FirstName = $inData["R_FirstName"];
 	$R_LastName = $inData["R_LastName"];
-  $R_username = $inData["R_username"];
-  $R_password = $inData["R_password"];
-  $ID = 0;
+  	$R_username = $inData["R_username"];
+  	$R_password = $inData["R_password"];
   
   $conn = new mysqli("localhost", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 
   
