@@ -90,7 +90,7 @@ function doRegister()
 		if (this.readyState == 4 && this.status == 200) 
 		{
 			//JSON.parse( xhr.responseText );
-      		document.getElementById("registerResult").innerHTML = "User Added!";
+      		document.getElementById("regResult").innerHTML = "User Added!";
 			window.location.href="index.html";
 		} 
   };
@@ -105,7 +105,7 @@ function doAdd(){
     let ALastName = document.getElementById("ALastName").value;
     let AEmail = document.getElementById("AEmail").value;
     let APhone = document.getElementById("APhone").value;
-    let AID = userId;
+    let userId = readCookie();
     
 	if (AFirstName == "" || APhone == "") // User will not always know last name nor email
 		{
@@ -115,7 +115,7 @@ function doAdd(){
 
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {Email:AEmail,Phone:APhone,FirstName:AFirstName,LastName:ALastName,UserID:AID};
+	let tmp = ({AEmail:AEmail,APhone:APhone,AFirstName:AFirstName,ALastName:ALastName,userId:userId});
 	let jsonPayload = JSON.stringify( tmp );
 	url = urlBase + '/Add.' + extension;
  
@@ -200,6 +200,8 @@ function readCookie()
 	else
 	{
 //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+  //console.log("User ID:", userId);
+        return userId;
 	}
 }
 
