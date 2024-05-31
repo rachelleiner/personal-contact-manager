@@ -4,19 +4,16 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-
-
-
-	$conn = new mysqli("contactmanager.xyz", "Access-20", "WeLoveCOP4331-20", "contactmanager");
+	$conn = new mysqli("localhost", "Access-20", "WeLoveCOP4331-20", "contactmanager");
 	if($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	}
 	else
 	{
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ?) AND ID=?");
-		$colorName = "%" . $inData["search"] . "%";
-		$stmt->bind_param("sss", $colorName, $colorName, $inData["ID"]);
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName like ? OR LastName like ?) AND UserID=?");
+		$contact = "%" . $inData["search"] . "%";
+		$stmt->bind_param("ssi", $contact, $contact, $inData["userId"]);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
