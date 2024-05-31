@@ -247,52 +247,56 @@ function addPerson()
 
 function searchContacts()
 {
-	let srch = document.getElementById("searchBar").value;
+	let userId = readCookie();
+  let search = document.getElementById("searchBar").value;
 	document.getElementById("SearchResult").innerHTML = "";
-	
-	let resultsTable = "";
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let tmp = ({search: search, userId: userId});
+	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/SearchContacts.' + extension;
-	
+
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("SearchResult").innerHTML = "Contact(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-       if(jsonObject.results != undefined){ 
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					resultsTable += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						resultsTable += "<br />\r\n";
-					} 
-				}
-       }
-       else{
-       document.getElementById("SearchResult").innerHTML = "No Contacts Found.";
-       }
-				
-				document.getElementsByTagName("tbody")[0].innerHTML = resultsTable; 
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("SearchResult").innerHTML = err.message;
-	}
-	
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                try {
+                    let jsonObject = JSON.parse(xhr.responseText);
+                    //document.getElementById("SearchResult").innerHTML = "Contact(s) has been retrieved";
+                    
+                    let resultsTable = "";
+                    if (jsonObject.results !== undefined) {
+                        for (let i = 0; i < jsonObject.results.length; i++) {
+                            resultsTable += "<tr>";
+                            resultsTable += "<td>" + jsonObject.results[i].FirstName + "</td>";
+                            resultsTable += "<td>" + jsonObject.results[i].LastName + "</td>";
+                            resultsTable += "<td>" + jsonObject.results[i].Phone + "</td>";
+                            resultsTable += "<td>" + jsonObject.results[i].Email + "</td>";
+                            resultsTable += '<td>';
+                            resultsTable += '<button onclick="doUpdate(' + jsonObject.results[i].ID + ')">Update</button>';
+                            resultsTable += '<button onclick="doDelete(' + jsonObject.results[i].ID + ')">Delete</button>';
+                            resultsTable += '</td>';
+
+                            resultsTable += "</tr>";
+                        }
+                    } else {
+                        document.getElementById("SearchResult").innerHTML = "No Contacts Found.";
+                    }
+                    
+                    document.getElementById("tableBody").innerHTML = resultsTable;
+                } catch (e) {
+                    console.error("Error parsing JSON response:", e);
+                    console.log("Response Text:", xhr.responseText);
+                    document.getElementById("SearchResult").innerHTML = "An error occurred while retrieving contacts.";
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("SearchResult").innerHTML = err.message;
+    }
 }
 
 function openForm() {
