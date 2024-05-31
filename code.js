@@ -245,17 +245,17 @@ function addPerson()
 	
 }
 
-function searchColor()
+function searchContacts()
 {
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	let srch = document.getElementById("searchBar").value;
+	document.getElementById("SearchResult").innerHTML = "";
 	
-	let colorList = "";
+	let resultsTable = "";
 
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -266,26 +266,31 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+				document.getElementById("SearchResult").innerHTML = "Contact(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 				
+       if(jsonObject.results != undefined){ 
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
+					resultsTable += jsonObject.results[i];
 					if( i < jsonObject.results.length - 1 )
 					{
-						colorList += "<br />\r\n";
-					}
+						resultsTable += "<br />\r\n";
+					} 
 				}
+       }
+       else{
+       document.getElementById("SearchResult").innerHTML = "No Contacts Found.";
+       }
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementsByTagName("tbody")[0].innerHTML = resultsTable; 
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("SearchResult").innerHTML = err.message;
 	}
 	
 }
@@ -299,24 +304,4 @@ function closeForm() {
 function AddOpenForm() {
         document.getElementById("popupForm").style.display = "block";
 }
-function filterTable() {
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("searchBar");
-        filter = input.value.toLowerCase();
-        table = document.getElementById("resultsTable");
-        tr = table.getElementsByTagName("tr");
 
-        for (i = 1; i < tr.length; i++) {
-            tr[i].style.display = "none";
-            td = tr[i].getElementsByTagName("td");
-            for (j = 0; j < td.length; j++) {
-                if (td[j]) {
-                    txtValue = td[j].textContent || td[j].innerText;
-                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                        break;
-                    }
-                }
-            }
-        }
-    }
