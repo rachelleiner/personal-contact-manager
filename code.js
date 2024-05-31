@@ -77,35 +77,26 @@ function doRegister()
 			return;
 		}
 
-  var jsonPayload = '{"RUsername" : "' + RUsername + '", "RPassword" : "' + RPassword + '", "RFirstName" : "' + RFirstName + '", "RLastName" : "' + RLastName + '"}';
-    let url = urlBase + '/Register.' + extension;
+	let jsonPayload = JSON.stringify({RFirstName:RFirstName,RLastName:RLastName,RUsername:RUsername,RPassword:RPassword}); 
+  	let url = urlBase + '/Register.' + extension;
 
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
- 
-	
-	
+ 	
 	xhr.onreadystatechange = function() 
 	{
 		if (this.readyState == 4 && this.status == 200) 
 		{
-			let jsonObject = JSON.parse( xhr.responseText );
-			var test = jsonObject.error;
-			console.log(test);
-      document.getElementById("registerResult").innerHTML = "Contact Added!";
+			//JSON.parse( xhr.responseText );
+      		document.getElementById("registerResult").innerHTML = "User Added!";
+			window.location.href="index.html";
 		} 
   };
  
- try{  
    xhr.send(jsonPayload);
    console.log("6");
- }
- catch(err)
-	{
-		document.getElementById("registerResult").innerHTML = err.message;
-}
 }
 
 function doAdd(){
@@ -114,7 +105,7 @@ function doAdd(){
     let ALastName = document.getElementById("ALastName").value;
     let AEmail = document.getElementById("AEmail").value;
     let APhone = document.getElementById("APhone").value;
-    let AID = 2;
+    let AID = userId;
     
 	if (AFirstName == "" || APhone == "") // User will not always know last name nor email
 		{
@@ -140,7 +131,13 @@ function doAdd(){
             document.getElementById("contactAddResult").innerHTML = "Contact has been successfully added";
         }
     };
-    xhr.send(jsonPayload);
+try{  
+   xhr.send(jsonPayload);
+ }
+ catch(err)
+	{
+		document.getElementById("contactAddResult").innerHTML = err.message;
+}
 }
 
 function doDelete(index, deleteID) //edit later
