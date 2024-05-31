@@ -47,8 +47,8 @@ function doLogin()
 					return;
 				}
 		
-				firstName = jsonObject.firstName;
-				lastName = jsonObject.lastName;
+				firstName = jsonObject.FirstName;
+				lastName = jsonObject.LastName;
 
 				saveCookie();
 	
@@ -66,25 +66,27 @@ function doLogin()
 
 function doRegister()
 {
-    let R_FirstName = document.getElementById("R_FirstName").value;
-    let R_LastName = document.getElementById("R_LastName").value;
-    let R_username = document.getElementById("R_Username").value;
-    let R_password = document.getElementById("R_Password").value;
+    let RFirstName = document.getElementById("rFirstName").value;
+    let RLastName = document.getElementById("rLastName").value;
+    let RUsername = document.getElementById("rUsername").value;
+    let RPassword = document.getElementById("rPassword").value;
     
-    if (R_FirstName == "" || R_LastName == "" || R_username == "" || R_password == "")
+    if (RFirstName == "" || RLastName == "" || RUsername == "" || RPassword == "")
 		{
 			document.getElementById("registerResult").innerHTML = "Please fill in all of the fields.";
 			return;
 		}
 
-	let tmp = {username:R_username,password:R_password,firstName:R_FirstName,lastName:R_LastName};
-	let jsonPayload = JSON.stringify( tmp );
-
+  var jsonPayload = '{"RUsername" : "' + RUsername + '", "RPassword" : "' + RPassword + '", "RFirstName" : "' + RFirstName + '", "RLastName" : "' + RLastName + '"}';
     let url = urlBase + '/Register.' + extension;
+
+
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
  
+	
+	
 	xhr.onreadystatechange = function() 
 	{
 		if (this.readyState == 4 && this.status == 200) 
@@ -92,14 +94,13 @@ function doRegister()
 			let jsonObject = JSON.parse( xhr.responseText );
 			var test = jsonObject.error;
 			console.log(test);
-       
-			saveCookie();
-			doLogin();
+      document.getElementById("registerResult").innerHTML = "Contact Added!";
 		} 
- };
+  };
  
  try{  
    xhr.send(jsonPayload);
+   console.log("6");
  }
  catch(err)
 	{
@@ -109,23 +110,26 @@ function doRegister()
 
 function doAdd(){
 	
-    let FirstName = document.getElementById("FirstName").value;
-    let LastName = document.getElementById("LastName").value;
-    let Email = document.getElementById("Email").value;
-    let Phone = document.getElementById("Phone").value;
-
-	if (FirstName == "" || Phone == "") // User will not always know last name nor email
+    let AFirstName = document.getElementById("AFirstName").value;
+    let ALastName = document.getElementById("ALastName").value;
+    let AEmail = document.getElementById("AEmail").value;
+    let APhone = document.getElementById("APhone").value;
+    let AID = 2;
+    
+	if (AFirstName == "" || APhone == "") // User will not always know last name nor email
 		{
-			document.getElementById("registerResult").innerHTML = "Please fill out these required fields.";
+			document.getElementById("contactAddResult").innerHTML = "Please fill out these required fields.";
 			return;
 		}
 
 	document.getElementById("contactAddResult").innerHTML = "";
 
-	let tmp = {Email:Email,Phone:Phone,FirstName:FirstName,LastName:LastName};
+	let tmp = {Email:AEmail,Phone:APhone,FirstName:AFirstName,LastName:ALastName,UserID:AID};
 	let jsonPayload = JSON.stringify( tmp );
-	let url = urlBase + '/Add.' + extension;
-
+	url = urlBase + '/Add.' + extension;
+ 
+ 
+  let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -133,7 +137,7 @@ function doAdd(){
     {
         if (this.readyState == 4 && this.status == 200)  
         {
-            document.getElementById("addResult").innerHTML = "Contact has been successfully added";
+            document.getElementById("contactAddResult").innerHTML = "Contact has been successfully added";
         }
     };
     xhr.send(jsonPayload);
@@ -166,7 +170,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "FirstName=" + firstName + ",LastName=" + lastName + ",ID=" + userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -178,15 +182,15 @@ function readCookie()
 	{
 		let thisOne = splits[i].trim();
 		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
+		if( tokens[0] == "FirstName" )
 		{
 			firstName = tokens[1];
 		}
-		else if( tokens[0] == "lastName" )
+		else if( tokens[0] == "LastName" )
 		{
 			lastName = tokens[1];
 		}
-		else if( tokens[0] == "userId" )
+		else if( tokens[0] == "ID" )
 		{
 			userId = parseInt( tokens[1].trim() );
 		}
@@ -211,7 +215,7 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addPerson()
 {
 	let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
@@ -292,6 +296,9 @@ function openForm() {
 }
 function closeForm() {
         document.getElementById("popupForm").style.display = "none";
+}
+function AddOpenForm() {
+        document.getElementById("popupForm").style.display = "block";
 }
 function filterTable() {
         var input, filter, table, tr, td, i, j, txtValue;
