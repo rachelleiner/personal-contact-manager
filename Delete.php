@@ -3,13 +3,14 @@
 
 $inData = getRequestInfo();
 	
-$FirstName = $inData["FirstName"];
-$LastName = $inData["LastName"];
-$Email = $inData["Email"];
-$Phone = $inData["Phone"];
-$ID = $inData["ID"];
+$FirstName = $inData["DFirstName"];
+$LastName = $inData["DLastName"];
+$Email = $inData["DEmail"];
+$Phone = $inData["DPhone"];
+$deleteID = $inData["DID"];
 
-	$conn = new mysqli("contactmanager.xyz", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 
+	$conn = new mysqli("localhost", "Access-20", "WeLoveCOP4331-20", "contactmanager"); 
+	
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -18,7 +19,7 @@ $ID = $inData["ID"];
 	else
 	{
 		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
-		$stmt->bind_param("i", $inData["ID"]);
+		$stmt->bind_param("i", $deleteID);
 		$stmt->execute();
 		
         if ($stmt->affected_rows > 0)
@@ -28,8 +29,6 @@ $ID = $inData["ID"];
 
 		$stmt->close();
 		$conn->close();
-		
-		returnWithError($inData["ID"]);
 	}
 
 	function getRequestInfo()
