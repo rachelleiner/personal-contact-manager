@@ -140,26 +140,6 @@ try{
 }
 }
 
-function doDelete(index, deleteID) //edit later
-{
-	document.getElementById("contactEditResult[" + newIndex + "]").innerHTML = "";
-	currentIndex = index;
-	document.getElementById("contactEditResult[" + index + "]").innerHTML = "";
-	var jsonPayload = '{"id" : ' + deleteID + '}';
-	var url = urlBase + '/LAMPAPI/Delete.' + extension;
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	xhr.onreadystatechange = function() 
-	{
-		if (this.readyState == 4 && this.status == 200) 
-		{
-			document.getElementById("contactEditResult[" + index + "]").innerHTML = "Contact has been deleted";
-		}
-	};
-	xhr.send(jsonPayload);
-}
 
 
 function saveCookie()
@@ -248,7 +228,7 @@ function addPerson()
 function searchContacts()
 {
 	let userId = readCookie();
-  let search = document.getElementById("searchBar").value;
+  	let search = document.getElementById("searchBar").value;
 	document.getElementById("SearchResult").innerHTML = "";
 
 	let tmp = ({search: search, userId: userId});
@@ -269,16 +249,18 @@ function searchContacts()
                     let resultsTable = "";
                     if (jsonObject.results !== undefined) {
                         for (let i = 0; i < jsonObject.results.length; i++) {
-                            resultsTable += "<tr>";
+                            resultsTable += "<tr id='row-" + jsonObject.results[i].ID + "'>";
                             resultsTable += "<td>" + jsonObject.results[i].FirstName + "</td>";
                             resultsTable += "<td>" + jsonObject.results[i].LastName + "</td>";
                             resultsTable += "<td>" + jsonObject.results[i].Phone + "</td>";
                             resultsTable += "<td>" + jsonObject.results[i].Email + "</td>";
+ 
                             resultsTable += '<td>';
-                            resultsTable += '<button onclick="doUpdate(' + jsonObject.results[i].ID + ')">Update</button>';
                             resultsTable += '<button onclick="doDelete(' + jsonObject.results[i].ID + ')">Delete</button>';
-                            resultsTable += '</td>';
+							resultsTable += '<button onclick="doUpdate(' + jsonObject.results[i].ID + ')">Update</button>';
 
+                            resultsTable += '</td>';
+                            
                             resultsTable += "</tr>";
                         }
                     } else {
@@ -298,6 +280,40 @@ function searchContacts()
         document.getElementById("SearchResult").innerHTML = err.message;
     }
 }
+function doDelete(contactID) 
+{
+	console.log(contactID);
+  let jsonPayload = JSON.stringify({contactID: contactID}); 
+ 
+ 
+	let url = urlBase + '/Delete.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
+	xhr.onreadystatechange = function()
+	{
+	  if (this.readyState === XMLHttpRequest.DONE) {
+           if (this.status === 200) {
+               // Request was successful, handle response if needed
+               console.log("Contact deleted successfully");
+                let row = document.getElementById('row-' + contactId);
+                if (row) {
+                    row.parentNode.removeChild(row);
+                }
+           } else {
+               // Request failed, handle error if needed
+               console.error("Error deleting contact:", xhr.responseText);      
+           }
+        }
+	};
+	xhr.send(jsonPayload);
+}
+
+function doUpdate(contactID){
+
+}
+
 
 function openForm() {
         document.getElementById("popupForm").style.display = "block";
