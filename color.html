@@ -7,7 +7,7 @@
         <title>Color Lookup</title>
 
         <!-- Load external CSS styles -->
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/styles2.css">
 
    
     <script type="text/javascript" src="js/code.js">
@@ -23,12 +23,14 @@
         <div style="text-align: center; margin-bottom: 30px;">
         <div id="loggedInDiv">
 	  <span id="userName"></span><br />
-	  <button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+	  <button type="button" id="logoutButton" class="colorsbutton colorsbutton4" onclick="doLogout();"> Log Out </button>
 </div>
-        
         <br />
         <input type="text" id="searchBar" placeholder="Search here...">
-        <button type="button" id="searchColorButton" class="buttons" onclick="searchContacts();"> Search Contacts</button><br />
+        <button type="button" id="searchColorButton" class="colorsbutton colorsbutton2" onclick="searchContacts();"> Search Contacts</button>
+        
+        <br />
+        
         <span id= "SearchResult"></span>
         
         <table id="resultsTable">
@@ -41,7 +43,7 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody id="tableBody">
+    <tbody id="tableBody" style="background-color: white;">
       
        
        
@@ -49,10 +51,11 @@
     </tbody>
     
     
-    
-    	  <button type="button" id="addContact" class="buttons" onclick="AddOpenForm();"> Add Contact </button>
+    	  <button type="button" id="addContact" class="colorsbutton colorsbutton3" onclick="AddOpenForm();"> Add Contact </button>
 	  <span id="AddContactResult"></span>
     </table>
+    
+    
         <div class="formPopup" id="popupForm">
         <div class = "popup-content">
         
@@ -67,19 +70,58 @@
           <input type="popup-text" id="ALastName" placeholder="Last Name" required>
         <div>  
           <label for="A_Phone"></label>
-          <input type="popup-text" id="APhone" placeholder="Phone Number" required>
+          <input type="popup-text" id="APhone" placeholder="XXX-XXX-XXXX" required>
         </div> 
           <label for="A_Email"></label>
-          <input type="popup-text" id="AEmail" placeholder="Email" required>
+          <input type="popup-text" id="AEmail" placeholder="name@example.com" required>
         <div> 
           <button type="popup-submit" id="AddButton" onclick="doAdd();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
         <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeForm()">Close</button>
-        </div>
+      </div>
         
        <span id="contactAddResult"></span> 
        
     </div>
 </div>
+      <div class="formPopup" id="popupFormUpdate">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Update Contact</h2>
+        </div>
+        <div>
+          <label for="updateFirstName"></label>
+          <input type="popup-text" id="updateFirstName" placeholder="First Name" required>
+        </div> 
+          <label for="updateLastName"></label>
+          <input type="popup-text" id="updateLastName" placeholder="Last Name" required>
+        <div>  
+          <label for="updatePhone"></label>
+          <input type="popup-text" id="updatePhone" placeholder="XXX-XXX-XXXX" required>
+        </div> 
+          <label for="updateEmail"></label>
+          <input type="popup-text" id="updateEmail" placeholder="name@example.com" required>
+        <div> 
+          <button type="popup-submit" id="AddButton" onclick="submitUpdate();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeFormUpdate()">Close</button>
+        </div>
+        
+      </div>
+</div>        
+        
+        <div class="formPopup" id="popupFormDelete">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Are you sure you want to delete?</h2>
+        </div>
+        <div>
+          <button type="popup-submit" id="AddButton" onclick="confirmDelete();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeFormDelete()">Cancel</button>
+      </div>
+     </div>
+  </div>   
+        
 </div>
 
 
