@@ -257,7 +257,7 @@ function searchContacts()
  
                             resultsTable += '<td>';
                             resultsTable += '<button onclick="doDelete(' + jsonObject.results[i].ID + ')">Delete</button>';
-							resultsTable += '<button onclick="doUpdate(' + jsonObject.results[i].ID + ')">Update</button>';
+							              resultsTable += '<button onclick="doUpdate(' + jsonObject.results[i].ID + ', \'' + jsonObject.results[i].FirstName + '\', \'' + jsonObject.results[i].LastName + '\', \'' + jsonObject.results[i].Phone + '\', \'' + jsonObject.results[i].Email + '\')">Update</button>';
 
                             resultsTable += '</td>';
                             
@@ -280,9 +280,20 @@ function searchContacts()
         document.getElementById("SearchResult").innerHTML = err.message;
     }
 }
-function doDelete(contactID) 
+
+function doDelete(contactID) {
+    // Store the contactID for use in the confirmDelete function
+    document.getElementById("popupFormDelete").dataset.contactID = contactID;
+
+    // Display the popup form
+    document.getElementById("popupFormDelete").style.display = "block";
+}
+
+function confirmDelete() 
 {
-	console.log(contactID);
+	let contactID = document.getElementById("popupFormDelete").dataset.contactID;
+  
+  console.log(contactID);
   let jsonPayload = JSON.stringify({contactID: contactID}); 
  
  
@@ -297,10 +308,11 @@ function doDelete(contactID)
            if (this.status === 200) {
                // Request was successful, handle response if needed
                console.log("Contact deleted successfully");
-                let row = document.getElementById('row-' + contactId);
+                let row = document.getElementById('row-' + contactID);
                 if (row) {
                     row.parentNode.removeChild(row);
                 }
+                closeFormDelete();
            } else {
                // Request failed, handle error if needed
                console.error("Error deleting contact:", xhr.responseText);      
@@ -310,16 +322,89 @@ function doDelete(contactID)
 	xhr.send(jsonPayload);
 }
 
-function doUpdate(contactID){
+function doUpdate(contactID, FirstName, LastName, Phone, Email) {
+    // Populate the popup form with the existing data
+    document.getElementById("updateFirstName").value = FirstName;
+    document.getElementById("updateLastName").value = LastName;
+    document.getElementById("updateEmail").value = Email;
+    document.getElementById("updatePhone").value = Phone;
+    
+    // Store the contactID for use in the submitUpdate function
+    document.getElementById("popupFormUpdate").dataset.contactID = contactID;
 
+    // Display the popup form
+    document.getElementById("popupFormUpdate").style.display = "block";
 }
 
+function submitUpdate() {
+    // Retrieve the contactID from the popup form dataset
+    let contactID = document.getElementById("popupFormUpdate").dataset.contactID;
+    
+    // Get the updated values from the form fields
+    let FirstName = document.getElementById("updateFirstName").value;
+    let LastName = document.getElementById("updateLastName").value;
+    let Email = document.getElementById("updateEmail").value;
+    let Phone = document.getElementById("updatePhone").value;
+
+    if (FirstName === "" || Phone === "") {
+        document.getElementById("updateResult").innerHTML = "Please fill in all of the fields.";
+        return;
+    }
+
+    let updatedContact = {
+        contactID: contactID,
+        FirstName: FirstName,
+        LastName: LastName,
+        Email: Email,
+        Phone: Phone
+    };
+
+    let url = urlBase + '/Update.' + extension;
+    let jsonPayload = JSON.stringify(updatedContact);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status === 200) {
+                console.log("Contact is updated");
+
+                // Update the table row with the new values
+                let row = document.getElementById('row-' + contactID);
+                row.querySelector('td:nth-child(1)').innerText = FirstName;
+                row.querySelector('td:nth-child(2)').innerText = LastName;
+                row.querySelector('td:nth-child(4)').innerText = Email;
+                row.querySelector('td:nth-child(3)').innerText = Phone;
+
+                // Close the popup form
+                closeFormUpdate();
+            } else {
+                document.getElementById("updateResult").innerHTML = "An error occurred while updating the contact.";
+                console.error("Error updating contact:", xhr.responseText);
+            }
+        }
+    };
+    xhr.send(jsonPayload);
+}
+
+function closePopup() {
+    document.getElementById("popupForm").style.display = "none";
+    document.getElementById("updateResult").innerHTML = "";
+}
 
 function openForm() {
         document.getElementById("popupForm").style.display = "block";
 }
 function closeForm() {
         document.getElementById("popupForm").style.display = "none";
+}
+function closeFormUpdate() {
+        document.getElementById("popupFormUpdate").style.display = "none";
+}
+function closeFormDelete() {
+        document.getElementById("popupFormDelete").style.display = "none";
 }
 function AddOpenForm() {
         document.getElementById("popupForm").style.display = "block";
