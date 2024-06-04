@@ -26,9 +26,6 @@ CREATE TABLE `Contacts` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(50) NOT NULL DEFAULT '',
   `LastName` varchar(50) NOT NULL DEFAULT '',
-  `Phone` varchar(50) NOT NULL DEFAULT '',
-  `Email` varchar(50) NOT NULL DEFAULT '',
-  `DateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserID` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -47,6 +44,9 @@ CREATE TABLE `Users` (
   `LastName` varchar(50) NOT NULL DEFAULT '',
   `Login` varchar(50) NOT NULL DEFAULT '',
   `Password` varchar(50) NOT NULL DEFAULT '',
+  `Phone` varchar(50) NOT NULL DEFAULT '',
+  `Email` varchar(50) NOT NULL DEFAULT '',
+  `DateCreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
