@@ -3,6 +3,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
         <title>Color Lookup</title>
 
@@ -63,17 +65,17 @@
           <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Add Contact</h2>
         </div>
         <div>
-          <label for="A_FirstName"></label>
-          <input type="popup-text" id="AFirstName" placeholder="First Name" required>
+          <label for="AFirstName"></label>
+          <input type="text" id="AFirstName" placeholder="First Name" required>
         </div> 
-          <label for="A_LastName"></label>
-          <input type="popup-text" id="ALastName" placeholder="Last Name" required>
+          <label for="ALastName"></label>
+          <input type="text" id="ALastName" placeholder="Last Name" required>
         <div>  
-          <label for="A_Phone"></label>
-          <input type="popup-text" id="APhone" placeholder="XXX-XXX-XXXX" required>
+          <label for="APhone"></label>
+          <input type="text" id="APhone" placeholder="XXX-XXX-XXXX" required>
         </div> 
-          <label for="A_Email"></label>
-          <input type="popup-text" id="AEmail" placeholder="name@example.com" required>
+          <label for="AEmail"></label>
+          <input type="text" id="AEmail" placeholder="name@example.com" required>
         <div> 
           <button type="popup-submit" id="AddButton" onclick="doAdd();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
         <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeForm()">Close</button>
@@ -91,16 +93,16 @@
         </div>
         <div>
           <label for="updateFirstName"></label>
-          <input type="popup-text" id="updateFirstName" placeholder="First Name" required>
+          <input type="text" id="updateFirstName" placeholder="First Name" required>
         </div> 
           <label for="updateLastName"></label>
-          <input type="popup-text" id="updateLastName" placeholder="Last Name" required>
+          <input type="text" id="updateLastName" placeholder="Last Name" required>
         <div>  
           <label for="updatePhone"></label>
-          <input type="popup-text" id="updatePhone" placeholder="XXX-XXX-XXXX" required>
+          <input type="text" id="updatePhone" placeholder="XXX-XXX-XXXX" required>
         </div> 
           <label for="updateEmail"></label>
-          <input type="popup-text" id="updateEmail" placeholder="name@example.com" required>
+          <input type="text" id="updateEmail" placeholder="name@example.com" required>
         <div> 
           <button type="popup-submit" id="AddButton" onclick="submitUpdate();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
         <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeFormUpdate()">Close</button>
