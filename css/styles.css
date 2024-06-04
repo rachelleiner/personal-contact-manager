@@ -1,163 +1,42 @@
 /* Place your CSS styles in this file */
 
-h1 {
-    text-align: center;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: normal;
-}
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color:#22223b;
-}
-form{
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    margin: 10px;
-}
-div[type="loginform"]{
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    margin: 10px;
-
+/* Variables that holds the color palletes of the website*/
+:root {
+    --section-background: #DCDBE0;  /* A shade of grey */
+    --accent1: #E57C04; /* A shade of orange */
+    --accent2: #778472;    /* A shade of green */
+    --pallete-white: #F2F2F2; /* A dim white */
+    --pallete-black: #2F2F2F;      /* A lighter black */
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 60%;
-    padding: 10px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+@font-face {
+    font-family: 'Century_Gothic';
+    src: url('fonts/CenturyGothic.ttf') format('truetypr');
 }
-
-button[type="button"] {
-    background-color: #4a4e69;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 30%;
-    font-size: 16px;
-    font-weight: bold;
-}
-button[type="button"]:hover {
-    background-color: #45a049;
-}
-button[type="submit"], [type="account_submit"] {
-    background-color: #f2e9e4;
-    color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 30%;
-    font-size: 16px;
-    text-align: center;
-    font-weight: bold;
-}
-button[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-
-* {box-sizing: border-box;}
-
-.formPopup {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    margin: 10px;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-}
- .popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #888;
-    width: 300px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-input[type="popup-text"]{
-    width: 60%;
-    padding: 10px;
-    margin: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-button[type="popup-submit"] {
-    background-color: #4a4e69;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 40%;
-    font-size: 16px;
-    text-align: center;
-}
-
-button[type="popup-submit"]:hover {
-    background-color: #45a049;
-}
-button[type="popup-cancel"] {
-    background-color: #c9ada7;
-    color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 40%;
-    font-size: 16px;
-    text-align: center;
-}
-button[type="popup-cancel"]:hover {
-    background-color: #ee2222;
-}
-
-
-<!--COLORS.HTML-->
-#searchBar {
-    margin-bottom: 20px;
-}
-table {
+header{
+    position: fixed;
+    top: 0%;
+    left: 0%;
     width: 100%;
-    border-collapse: collapse;
+    background-color: var(--section-background);
+    font-family: 'Century_Gothic', sans-serif;
+    font-weight: bold;
+    z-index: 1000; /* Ensure that the header is above other content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 }
-th, td {
-    border: 1px solid #ddd;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    text-align: left;
+.header-container {
+    display: flex;
 }
-th {
-    background-color: #f2f2f2;
+
+.logo {
+    height: 50px; /* Adjust based on your logo's size */
+    margin-right: 15px;
 }
+
+.site-name {
+    font-size: 1.5em;
+}
+
