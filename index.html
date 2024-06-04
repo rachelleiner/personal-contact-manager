@@ -3,6 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Index</title>
 
@@ -19,24 +20,24 @@
 
     <div type="loginform" id="loginForm">
         <div>
-            <label for="username">Username</label>
+            <label for="loginName">Username</label>
             <input type="text" id="loginName" name="loginName" required>
         </div>
 
         <div>
-            <label for="password">Password</label>
+            <label for="loginPassword">Password</label>
             <input type="password" id="loginPassword" name="loginPassword" required>
         </div>
         <div>
             <label for="login"></label>
-            <button type="button" id="loginButton" onclick="doLogin()">Login</button>
+            <button type="button" class="button" id="loginButton" onclick="doLogin()">Login</button>
         </div>      
         <span id="loginResult"></span>
     </div>
     
     <div type="loginform" style="background-color: #9a8c98">
     
-		<h3 style="color: #fff">Don't have an account? Create one here.</h3>
+		<h2 style="color: #fff; font-size: 20px;">Don't have an account? Create one here.</h2>
         <div>
             <label for="register"></label>
             <button type="account_submit" id="register" onclick="openForm()">Register</button>  
