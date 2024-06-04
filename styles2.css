@@ -101,13 +101,15 @@ button[type="submit"]:hover {
     width: 300px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
-input[type="popup-text"]{
+input[type="text"]{
     width: 60%;
     padding: 10px;
     margin: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    input[type="text"],
+
 }
 button[type="popup-submit"] {
     background-color: #4a4e69;
