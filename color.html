@@ -1,0 +1,129 @@
+ <!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <title>Color Lookup</title>
+
+        <!-- Load external CSS styles -->
+        <link rel="stylesheet" href="css/styles2.css">
+
+   
+    <script type="text/javascript" src="js/code.js">
+	    document.addEventListener('DOMContentLoaded', function() 
+    {
+		    readCookie();
+	  }, false);
+	  </script>
+     </head>
+
+
+    <body>
+        <div style="text-align: center; margin-bottom: 30px;">
+        <div id="loggedInDiv">
+	  <span id="userName"></span><br />
+	  <button type="button" id="logoutButton" class="colorsbutton colorsbutton4" onclick="doLogout();"> Log Out </button>
+</div>
+        <br />
+        <input type="text" id="searchBar" placeholder="Search here...">
+        <button type="button" id="searchColorButton" class="colorsbutton colorsbutton2" onclick="searchContacts();"> Search Contacts</button>
+        
+        <br />
+        
+        <span id= "SearchResult" style="color:white; font-weight: bold;"></span>
+        <br />
+        <table id="resultsTable">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th style="padding-right: 80px; padding-left: 80px;">Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody" style="background-color: white;">
+      
+       
+       
+       
+    </tbody>
+    
+    
+    	  <button type="button" id="addContact" class="colorsbutton colorsbutton3" onclick="AddOpenForm();"> Add Contact </button>
+	  <span id="AddContactResult"></span>
+    </table>
+    
+    
+        <div class="formPopup" id="popupForm">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Add Contact</h2>
+        </div>
+        <div>
+          <label for="AFirstName"></label>
+          <input type="text" id="AFirstName" placeholder="First Name" required>
+        </div> 
+          <label for="ALastName"></label>
+          <input type="text" id="ALastName" placeholder="Last Name" required>
+        <div>  
+          <label for="APhone"></label>
+          <input type="text" id="APhone" placeholder="XXX-XXX-XXXX" required>
+        </div> 
+          <label for="AEmail"></label>
+          <input type="text" id="AEmail" placeholder="name@example.com" required>
+        <div> 
+          <button type="popup-submit" id="AddButton" onclick="doAdd();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeForm()">Close</button>
+      </div>
+        
+       <span id="contactAddResult"></span> 
+       
+    </div>
+</div>
+      <div class="formPopup" id="popupFormUpdate">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Update Contact</h2>
+        </div>
+        <div>
+          <label for="updateFirstName"></label>
+          <input type="text" id="updateFirstName" placeholder="First Name" required>
+        </div> 
+          <label for="updateLastName"></label>
+          <input type="text" id="updateLastName" placeholder="Last Name" required>
+        <div>  
+          <label for="updatePhone"></label>
+          <input type="text" id="updatePhone" placeholder="XXX-XXX-XXXX" required>
+        </div> 
+          <label for="updateEmail"></label>
+          <input type="text" id="updateEmail" placeholder="name@example.com" required>
+        <div> 
+          <button type="popup-submit" id="AddButton" onclick="submitUpdate();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeFormUpdate()">Close</button>
+        </div>
+          <span id="contactUpdateResult"></span> 
+      </div>
+</div>        
+        
+        <div class="formPopup" id="popupFormDelete">
+        <div class = "popup-content">
+        
+      <div>
+          <h2 style="background-color: #f2e9e4; margin: 8px; padding: 10px">Are you sure you want to delete?</h2>
+        </div>
+        <div>
+          <button type="popup-submit" id="AddButton" onclick="confirmDelete();" style="font-weight: bold;" style="width: 40%" ">Submit</button>       
+        <button type="popup-cancel" style="width: 40%; font-weight:bold;" background-color="#c9ada7" onclick="closeFormDelete()">Cancel</button>
+      </div>
+     </div>
+  </div>   
+        
+</div>
+
+
