@@ -99,6 +99,32 @@ function doRegister()
    console.log("6");
 }
 
+function applyPhoneMask(inputField) {
+    inputField.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+        let formattedValue = '';
+        
+        if (value.length > 0) {
+            formattedValue += value.substring(0, 3);
+        }
+        if (value.length > 3) {
+            formattedValue += '-' + value.substring(3, 6);
+        }
+        if (value.length > 6) {
+            formattedValue += '-' + value.substring(6, 10);
+        }
+        
+        e.target.value = formattedValue;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    applyPhoneMask(document.getElementById('updatePhone'));
+    applyPhoneMask(document.getElementById('APhone'));
+});
+
+
+
 function doAdd(){
 	
     let AFirstName = document.getElementById("AFirstName").value;
@@ -106,6 +132,7 @@ function doAdd(){
     let AEmail = document.getElementById("AEmail").value;
     let APhone = document.getElementById("APhone").value;
     let userId = readCookie();
+    
     
 	if (AFirstName == "" || APhone == "") // User will not always know last name nor email
 		{
@@ -388,6 +415,11 @@ function submitUpdate() {
     };
     xhr.send(jsonPayload);
 }
+
+
+
+
+
 
 function closePopup() {
     document.getElementById("popupForm").style.display = "none";
